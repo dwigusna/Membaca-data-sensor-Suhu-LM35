@@ -1,0 +1,26 @@
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2); //mendeklarasikan pin pin yang terhubung dengan LCD
+const int led=13; //Mendeklarasikan pin yang terhubung dengan LED
+int analogPin = 0; // Memberikan nilai pada analog pin
+int a = 0; // memberikan nilai pada variabel A
+
+void setup()
+{
+  lcd.begin(16, 2); // Menetapkan jumlah karakter dalam satu baris yaitu 16 dan terdiri dari 2 baris
+  pinMode (13,OUTPUT); // menetapkan pin 13 sebagai output
+}
+
+void loop()
+{
+  a = analogRead(analogPin); //membaca analog pin sebagai variabel A
+  lcd.setCursor(0,0); //mengarahkan kursor untuk menulis pada lcd baris atas
+  lcd.print("suhu = ");lcd.print(a); //memberikan teks yang akan ditulis pada baris pertama
+  lcd.setCursor(0,1); //mengarahkan kursor untuk menulis pada lcd baris kedua
+  if (a >= 55) { // memberikan syarat pada nilai a untuk meberikan keterangan berbeda pada lcd baris ke 2
+    digitalWrite (led, HIGH); // jika nilai a lebih besar dari 55 maka led menyala
+    lcd.print("pendingin nyala");// dan baris ke dua pada lcd tertulis pendingin menyala
+  }  else { // jika syarat tidak terpenuhi maka
+    digitalWrite (led, LOW); // led dimatikan
+    lcd.print("pendingin  mati"); // dan baris kedua pada lcd tertulis pendingin dimatikan
+  }
+}
